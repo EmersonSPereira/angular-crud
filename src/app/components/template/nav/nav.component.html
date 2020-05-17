@@ -1,6 +1,6 @@
-<mat-sidenav-container>
-    <mat-sidenav position="end" class="sidenav" mode="over" opened fixedInViewport="true" fixedTopGap="50"
-        fixedBottomGap="50" [(opened)]="opened"  #sidenav>
+<mat-sidenav-container class="container">
+    <mat-sidenav position="end" class="sidenav" disableClose mode="over" opened fixedInViewport="true" fixedTopGap="60"
+        [(opened)]="opened"  #sidenav>
         <mat-nav-list>
             <a mat-list-item routerLink="/">
                 <i class="material-icons">
@@ -19,5 +19,4 @@
     <mat-sidenav-content class="content">
         <router-outlet></router-outlet>
     </mat-sidenav-content>
-
 </mat-sidenav-container>

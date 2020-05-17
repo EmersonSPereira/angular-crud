@@ -11,6 +11,15 @@
     padding-right: 10px;
 }
 .content {
-    padding: 16px;
     background-color: white;
 }
+  .container {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+  }
+  
+ 
+  

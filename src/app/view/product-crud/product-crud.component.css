@@ -1,6 +1,7 @@
 .div-button {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 3%;
+    padding-right: 3%;
+    padding-top: 3%;
 
 }
