@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.red {
+    color: #E74C3C;
+}
+
+.v-middle {
+    vertical-align: middle;
+}
+
+.toolbar-height{
+    max-height: 50px;
+}
+
+.msg-success {
+    background-color: #2ECC71 ;
+    color: white;
+}
+
+.msg-error {
+    background-color: #E74C3C;
+    color: white;
+}
+
+.msg-success span {
+    color: white;
+}
+
+.msg-error span {
+    color: white;
+}

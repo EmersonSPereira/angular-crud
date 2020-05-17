@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" style="vertical-align: middle;" class="mat-elevation-z5 toolbar-height">
+
+    <img [src]="imageUrl" routerLink="/" style="max-width: 16%; cursor:pointer;" alt="logo">
+
+    <a [routerLink]="[routerUrl]" routerLinkActive="router-link-active">
+        <i class="material-icons">
+            {{icon}}
+        </i>
+        <p >{{title}}</p>
+    </a>
+
+    <span class="spacer"></span>
+    <mat-icon (click)="openOrClosenav()" >{{menuIcon}}</mat-icon>
+
+</mat-toolbar>
