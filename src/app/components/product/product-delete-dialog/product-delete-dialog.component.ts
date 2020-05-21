@@ -22,12 +22,8 @@ export class ProductDeleteDialogComponent implements OnInit {
   confirmDelete() {
     this.productService.delete(this.data.id).subscribe(() => {
       this.productService.showMessage('Deletado com sucesso');
-      this.closeDialog();
+      this.dialogRef.close();
     }, err => this.productService.showMessage('Falha ao deletar produto', true));
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
 

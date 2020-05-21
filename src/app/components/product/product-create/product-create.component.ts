@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Product } from '../product.model';
+import { priceValidator } from '../product-validator';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-create',
@@ -10,11 +11,11 @@ import { Product } from '../product.model';
 })
 export class ProductCreateComponent implements OnInit {
 
-  product: Product = {
-    name: '',
-    price: null
-  }
-  constructor(private productService: ProductService, private router: Router) { }
+  form = this.fb.group({
+    name: ['', [Validators.required]],
+    price: [null, [Validators.required, priceValidator]]
+  });
+  constructor(private productService: ProductService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -24,10 +25,14 @@ export class ProductCreateComponent implements OnInit {
   }
 
   createProduct(): void {
-    this.productService.create(this.product).subscribe(
-      () => {
-        this.productService.showMessage('Sucesso ao cadastrar produto');
-        this.router.navigate(['/produtos']);
-      }, err => this.productService.showMessage('Falha ao cadastrar produto', true));
+    if (this.form.valid) {
+      this.productService.create(this.form.value).subscribe(
+        () => {
+          this.productService.showMessage('Sucesso ao cadastrar produto');
+          this.router.navigate(['/produtos']);
+        }, err => this.productService.showMessage('Falha ao cadastrar produto', true));
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 }

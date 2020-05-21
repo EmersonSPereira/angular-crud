@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, take } from 'rxjs/operators';
 import { Product } from './product.model';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class ProductService {
 
   read(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl).pipe(
-      retry(1),
+      take(1),
        catchError(e => throwError(e))
      );
   }

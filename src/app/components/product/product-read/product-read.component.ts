@@ -29,6 +29,7 @@ export class ProductReadComponent implements OnInit {
 
   loadTable() {
     this.productService.read().subscribe(products => {
+      console.log(products);
       this.dataSource = new ProductRead2DataSource();
       this.dataSource.data = products;
       this.dataSource.sort = this.sort;
@@ -43,7 +44,13 @@ export class ProductReadComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTable();
+      setTimeout(() => { // esse timout é necessário pois o heroku demora um pouco menos de 1 seg para atualizar o db.json apos deleção
+        this.loadTable();
+      }, 1000);
     });
   }
+
+   delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
