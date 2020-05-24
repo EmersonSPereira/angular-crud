@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavService } from './nav.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { NavService } from './nav.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private navService: NavService) { }
+  constructor(private navService: NavService, private route: Router ) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +20,15 @@ export class NavComponent implements OnInit {
   }
   set opened(opened: boolean) {
     this.navService.headerData.opened = opened;
+  }
+
+  navegarCadastro(): void {
+    this.opened = false;
+    this.route.navigateByUrl('/produtos');
+  }
+  navegarHome(): void {
+    this.opened = false;
+    this.route.navigateByUrl('/');
   }
 
 }

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HeaderService } from './header.service';
-import { HeaderData } from './header-data.model';
-import { NavService } from '../nav/nav.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { NavService } from '../nav/nav.service';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +9,6 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  menuIcon = 'menu';
   imageUrl = 'assets/logo_transparente.png';
 
   constructor(private headerService: HeaderService, private navService: NavService, public breakpointObserver: BreakpointObserver) { }
@@ -47,10 +45,8 @@ export class HeaderComponent implements OnInit {
   openOrClosenav(): void {
     if (this.opened) {
       this.opened = false;
-      this.menuIcon = 'menu';
     } else {
       this.opened = true;
-      this.menuIcon = 'close';
     }
   }
 

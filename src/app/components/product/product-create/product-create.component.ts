@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { priceValidator } from '../product-validator';
 import { ProductService } from '../product.service';
+import { ProgressService } from '../../template/progress/progress.service';
 
 @Component({
   selector: 'app-product-create',
@@ -15,7 +16,10 @@ export class ProductCreateComponent implements OnInit {
     name: ['', [Validators.required]],
     price: [null, [Validators.required, priceValidator]]
   });
-  constructor(private productService: ProductService, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    private productService: ProductService,
+    private router: Router, private fb: FormBuilder,
+    private progressService: ProgressService) { }
 
   ngOnInit(): void {
   }
@@ -25,12 +29,17 @@ export class ProductCreateComponent implements OnInit {
   }
 
   createProduct(): void {
+    this.progressService.progress.show = true;
     if (this.form.valid) {
       this.productService.create(this.form.value).subscribe(
         () => {
+          this.progressService.progress.show = false;
           this.productService.showMessage('Sucesso ao cadastrar produto');
           this.router.navigate(['/produtos']);
-        }, err => this.productService.showMessage('Falha ao cadastrar produto', true));
+        }, err => {
+          this.progressService.progress.show = false;
+          this.productService.showMessage('Falha ao cadastrar produto', true)
+        });
     } else {
       this.form.markAllAsTouched();
     }

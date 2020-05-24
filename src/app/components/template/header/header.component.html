@@ -6,10 +6,13 @@
         <i class="material-icons">
             {{icon}}
         </i>
-        <p >{{title}}</p>
+        <p>{{title}}</p>
     </a>
 
     <span class="spacer"></span>
-    <mat-icon (click)="openOrClosenav()" >{{menuIcon}}</mat-icon>
+    <mat-icon *ngIf="!opened;else iconMenu" (click)="openOrClosenav()">menu</mat-icon>
+    <ng-template #iconMenu>
+        <mat-icon (click)="openOrClosenav()">close</mat-icon>
+    </ng-template>
 
 </mat-toolbar>

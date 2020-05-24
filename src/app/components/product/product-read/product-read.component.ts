@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { ProductRead2DataSource } from './product-read-datasource';
+import { ProductDeleteDialogComponent } from '../product-delete-dialog/product-delete-dialog.component';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ProductDeleteDialogComponent } from '../product-delete-dialog/product-delete-dialog.component';
+import { ProductRead2DataSource } from './product-read-datasource';
+import { ProgressService } from '../../template/progress/progress.service';
 
 @Component({
   selector: 'app-product-read',
@@ -19,7 +20,7 @@ export class ProductReadComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<Product>;
   dataSource: ProductRead2DataSource;
 
-  constructor(private productService: ProductService, public dialog: MatDialog) { }
+  constructor(private productService: ProductService, public dialog: MatDialog, private progressService: ProgressService) { }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'price', 'action'];
 
@@ -28,14 +29,18 @@ export class ProductReadComponent implements OnInit {
   }
 
   loadTable() {
+    this.progressService.progress.show = true;
     this.productService.read().subscribe(products => {
-      console.log(products);
+      this.progressService.progress.show = false;
       this.dataSource = new ProductRead2DataSource();
       this.dataSource.data = products;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.table.dataSource = this.dataSource;
-    }, err => this.productService.showMessage('Falha ao buscar produtos', true));
+    }, err => {
+      this.productService.showMessage('Falha ao buscar produtos', true);
+      this.progressService.progress.show = false;
+    });
   }
 
   openDialog(productSelected: Product) {
@@ -50,7 +55,7 @@ export class ProductReadComponent implements OnInit {
     });
   }
 
-   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
